@@ -153,6 +153,31 @@ MeshData loadObj(const char* path)
 
 }
 
+GLuint createVAOFromOBJ(MeshData mesh)
+{
+	Gluint VBO, VAO;
+
+	glGenBuffers(1, &VBO);
+	glGenVertexArrays(1, &VAO);
+
+	glBindVertexArray(VAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, mesh.vertexCount * 6 * sizeof(float), mesh.vertices, GL_STATIC_DRAW);
+
+	// posição
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3*sizeof(float)));
+	glEnableVertexAttribArray(1);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+
+	return VAO;
+}
+
 // Função MAIN
 int main()
 {
