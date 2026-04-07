@@ -181,6 +181,7 @@ GLuint createVAOFromOBJ(MeshData mesh)
 // Função MAIN
 int main()
 {
+	// OBJETOS OBJ SÓ PODEM SER CARREGADOS NA MESMA PASTA DO PROGRAMA
 	// Inicialização da GLFW
 	glfwInit();
 
@@ -227,14 +228,18 @@ int main()
 	GLuint shaderID = setupShader();
 
 	// Criando os buffers de vertices dos objetos e armazenando o identificador do VAO retornado por setupGeometry() na estrutura de cada objeto
-	objetos[0].VAO = setupGeometry();
-	objetos[0].vertexCount = 18;
+	MeshData m1 = loadOBJ("obj1.obj");
+	MeshData m2 = loadOBJ("obj2.obj");
+	MeshData m3 = loadOBJ("obj3.obj");
+	
+	objetos[0].VAO = createVAOFromOBJ(m1);
+	objetos[0].vertexCount = m1.vertexCount;
 
-	objetos[1].VAO = setupGeometry();
-	objetos[1].vertexCount = 18;
+	objetos[1].VAO = createVAOFromOBJ(m2);
+	objetos[1].vertexCount = m2.vertexCount;
 
-	objetos[2].VAO = setupGeometry();
-	objetos[2].vertexCount = 18;
+	objetos[2].VAO = createVAOFromOBJ(m3);
+	objetos[2].vertexCount = m3.vertexCount;
 
 	// posição dos objetos
 	for (int i = 0; i < totalObjetos; i++){
